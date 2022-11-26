@@ -29,6 +29,19 @@ void AShooterCharacter::Tick(float DeltaTime)
 void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this ,&AShooterCharacter::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("Strafe"), this, &AShooterCharacter::Strafe);
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this ,&AShooterCharacter::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis(TEXT("LookRight"), this ,&AShooterCharacter::AddControllerYawInput);
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &AShooterCharacter::Jump);
 }
 
+void AShooterCharacter::MoveForward(float AxisValue)
+{
+	AddMovementInput(GetActorForwardVector() * AxisValue);
+}
+
+void AShooterCharacter::Strafe(float AxisValue)
+{
+	AddMovementInput(GetActorRightVector() * AxisValue);
+}
