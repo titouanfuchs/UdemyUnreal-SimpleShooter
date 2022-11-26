@@ -29,4 +29,10 @@ private:
 
 	void MoveForward(float AxisValue);
 	void Strafe(float AxisValue);
+
+	UPROPERTY(EditAnywhere)
+		float RotationRate = 50.f;
+
+	void LookUpRate(float AxisValue);
+	void LookRightRate(float AxisValue);
 };
