@@ -15,6 +15,8 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 
+	void PullTrigger();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -30,6 +32,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 		class USkeletalMeshComponent* MeshComp;
+
+	UPROPERTY(EditAnywhere)
+		class UParticleSystem* MuzzleFlash;
 
 	UPROPERTY()
 		AWeapon* CurrentWeapon;

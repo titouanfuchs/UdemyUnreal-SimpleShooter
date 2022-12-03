@@ -3,6 +3,8 @@
 
 #include "Weapon.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 AWeapon::AWeapon()
 {
@@ -14,6 +16,12 @@ AWeapon::AWeapon()
 
 	MeshComp = CreateDefaultSubobject<USkeletalMeshComponent>("Mesh");
 	MeshComp->SetupAttachment(RootComp);
+}
+
+void AWeapon::PullTrigger()
+{
+	UE_LOG(LogTemp, Warning, TEXT("PULL TRIGGER"));
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, MeshComp, TEXT("MuzzleFlashSocket"));
 }
 
 // Called when the game starts or when spawned

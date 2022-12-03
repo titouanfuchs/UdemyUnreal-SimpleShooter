@@ -32,6 +32,8 @@ private:
 	void MoveForward(float AxisValue);
 	void Strafe(float AxisValue);
 
+	void Shoot();
+
 	UPROPERTY(EditAnywhere)
 		float RotationRate = 50.f;
 
