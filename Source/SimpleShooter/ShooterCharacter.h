@@ -27,8 +27,19 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+	UFUNCTION(BlueprintPure)
+		bool IsDead() const {return Health <= 0;};
 private:
 
+	UPROPERTY(EditDefaultsOnly)
+		float MaxHealth = 100;
+
+	UPROPERTY(VisibleAnywhere)
+		float Health;
+	
 	void MoveForward(float AxisValue);
 	void Strafe(float AxisValue);
 

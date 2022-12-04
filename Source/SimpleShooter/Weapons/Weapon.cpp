@@ -3,6 +3,7 @@
 
 #include "Weapon.h"
 
+#include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 #include "SimpleShooter/ShooterCharacter.h"
 
@@ -42,8 +43,16 @@ void AWeapon::PullTrigger()
 
 	if (bool hasHit = GetWorld()->LineTraceSingleByChannel(hit, viewportLocation, end, ECollisionChannel::ECC_GameTraceChannel1))
 	{
-		DrawDebugLine(GetWorld(), viewportLocation, hit.Location, FColor::Red, true);
-		DrawDebugSphere(GetWorld(), hit.Location, 10, 12, FColor::Green, true);
+		FVector shotDirection = -viewportRotation.Vector();
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactEffect,hit.Location, shotDirection.Rotation());
+
+		FPointDamageEvent DamageEvent(Damage, hit, shotDirection, nullptr);
+		AActor* targetActor = hit.GetActor();
+
+		if (targetActor != nullptr)
+		{
+			targetActor->TakeDamage(Damage, DamageEvent, ownerController, this);
+		}
 	}
 }
 
