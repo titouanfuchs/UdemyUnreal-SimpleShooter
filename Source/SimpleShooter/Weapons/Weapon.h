@@ -36,6 +36,9 @@ private:
 	UPROPERTY(EditAnywhere)
 		class UParticleSystem* MuzzleFlash;
 
+	UPROPERTY(EditAnywhere)
+		float MaxRange = 1000.f;
+
 	UPROPERTY()
 		AWeapon* CurrentWeapon;
 };
